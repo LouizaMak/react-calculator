@@ -23,8 +23,13 @@ function Calculator() {
                     return setAnswer(num1 - num2)
                 case '*':
                     return setAnswer(num1 * num2)
-                case '/':            
-                    return setAnswer(num1 / num2)
+                case '/':
+                    if (num2 === 0) {
+                        return setAnswer("undefined")
+                    }
+                    else {             
+                        return setAnswer(num1 / num2)
+                    }
                 default:
                     return setAnswer('Invalid operator')
             } 
@@ -34,11 +39,25 @@ function Calculator() {
         }
     }
 
+    function handleClick(num) {
+        setEquation(equation => equation + num)
+    }
+
     return (
         <>
             <form onSubmit={handleSubmission}>
                 <input className="equation-input" name="equation-input" onChange={e => setEquation(e.target.value)} value={equation}/>
-                <button type='submit'>Enter</button>
+                <div>
+                    {["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"].map(num => (
+                        <button type="button" key={num} value={num} name={num} onClick={() => handleClick(num)}>{num}</button>
+                    ))}
+                </div>
+                <div>
+                    {["+", "-", "*", "/"].map(op => (
+                        <button type="button" key={op} value={op} name={op} onClick={() => handleClick(op)}>{op}</button>
+                    ))}
+                </div>
+                <button name="submit" type='submit'>Enter</button>
             </form>
             <h1 className='answer'>{answer}</h1>
         </>
