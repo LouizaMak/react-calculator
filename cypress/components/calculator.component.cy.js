@@ -59,10 +59,13 @@ describe('<Calculator />', () => {
     cy.get('button[name=1]')
       .click();
 
-    cy.get('button[name=+]')
+    cy.get('button[name=\\+]')
       .click();
 
     cy.get('button[name=2]')
+      .click();
+
+    cy.get('button[name=submit]')
       .click();
 
     cy.get("h1.answer")
